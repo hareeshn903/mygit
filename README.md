@@ -1,5 +1,16 @@
 # mygit
 
+<details>
+  <summary>Click to expand</summary>
+
+  Hidden content goes here.  
+  You can include **Markdown** inside this section, like lists, images, etc.
+
+  - Bullet point
+  - Another item
+
+</details>
+
 Git Configuration
 
 git config is a command used to configure Git settings—such as your name, email, editor, and behavior preferences—either globally (across all repositories for a user) or locally (specific to a single repository).
