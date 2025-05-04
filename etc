@@ -1,0 +1,14 @@
+<details>
+  <summary>Click to expand</summary>
+
+  Hidden content goes here.
+  You can include **Markdown** inside this section, like lists, images, etc.
+
+  - Bullet point
+  - Another item
+
+</details>
+
+
+#css:
+#  - /assets/css/style.css

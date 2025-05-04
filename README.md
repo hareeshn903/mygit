@@ -1,57 +1,45 @@
 # mygit
+[[TOC]]- [mygit](#mygit)
+- [mygit](#mygit)
+- [Git Configuration](#git-configuration)
+- [Windows](#windows)
+- [Linux/Mac](#linuxmac)
 
-<details>
-  <summary>Click to expand</summary>
 
-  Hidden content goes here.  
-  You can include **Markdown** inside this section, like lists, images, etc.
 
-  - Bullet point
-  - Another item
 
-</details>
+# Git Configuration
 
-Git Configuration
-
-git config is a command used to configure Git settings—such as your name, email, editor, and behavior preferences—either globally (across all repositories for a user) or locally (specific to a single repository).
+git config is a command used to configure Git settings—such as name, email, editor, and behavior preferences—either globally (across all repositories for a user) or locally (specific to a single repository).
 
 Git uses configuration files to determine how it should behave for a given user or repository. The git config command is the interface for reading and writing those settings.
 
 configuration files at different levels:
 
-System-level: Affects all users on the system
+- System-level: Affects all users on the system
 
-Global-level: Affects all repositories for a single user
+- Global-level: Affects all repositories for a single user
 
-Local-level: Specific to a single repository
+- Local-level: Specific to a single repository
 
 Configuration Files
 
 1. System-level Configuration
-
 Location: /etc/gitconfig on Unix-like systems
-
 Applies to: All users on the system
-
-How to set: git config --system <key> <value>
+How to set: ```git config --system <key> <value>```
 
 2. Global-level Configuration
-
 Location: ~/.gitconfig or ~/.config/git/config on Unix-like systems
-
 Applies to: All repositories for the current user
-
-How to set: git config --global <key> <value>
+How to set: ```git config --global <key> <value>```
 
 3. Local-level Configuration
-
 Location: .git/config in the repository directory
-
 Applies to: Only the current repository
+How to set: ` git config --local <key> <value> (or just git config <key> <value>)`
 
-How to set: git config --local <key> <value> (or just git config <key> <value>)
-
-Viewing Configuration
+**Viewing Configuration**
 
 To view all configurations and where they're set:
 
@@ -322,5 +310,3 @@ Resolve conflicts more effectively
 
 Would you like me to elaborate on any specific aspect of these areas?
 
-#css:
-#  - /assets/css/style.css
