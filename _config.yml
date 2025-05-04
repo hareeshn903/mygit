@@ -1,5 +1,5 @@
 theme: jekyll-theme-slate
 
-css:
-  - /assets/css/style.css
+#css:
+#  - /assets/css/style.css
 
