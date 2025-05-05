@@ -1,14 +1,9 @@
-# mygit
-[[TOC]]- [mygit](#mygit)
-- [mygit](#mygit)
+
 - [Git Configuration](#git-configuration)
-- [Windows](#windows)
-- [Linux/Mac](#linuxmac)
+- [Git Areas](#git-areas)
 
 
-
-
-# Git Configuration
+## Git Configuration
 
 git config is a command used to configure Git settings—such as name, email, editor, and behavior preferences—either globally (across all repositories for a user) or locally (specific to a single repository).
 
@@ -43,248 +38,187 @@ How to set: ` git config --local <key> <value> (or just git config <key> <value>
 
 To view all configurations and where they're set:
 
-git config --list --show-origin
+`git config --list --show-origin`
 
 To view a specific configuration value:
 
-git config <key>
+`git config <key>`
 
 Common Configuration Settings
 
-User Information
+**User Information**
 
 Essential for commits:
 
+```
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
+```
+
 
 Editor
 
 Set your preferred text editor:
-
+```
 git config --global core.editor "code --wait"  # VS Code
 git config --global core.editor "vim"         # Vim
 git config --global core.editor "nano"        # Nano
-
+```
 Merge and Diff Tools
 
 Configure merge/diff tools:
-
+```
 git config --global merge.tool vimdiff
 git config --global diff.tool vimdiff
-
+```
 Aliases
 
 Create shortcuts for common commands:
-
+```
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
-
+```
 Line Endings
 
 Important for cross-platform work:
 
-# Windows
-git config --global core.autocrlf true
+#Windows
+`git config --global core.autocrlf true`
 
-# Linux/Mac
-git config --global core.autocrlf input
+#Linux/Mac
+`git config --global core.autocrlf input`
 
-Default Branch Name
+**Default Branch Name**
 
 Set the default branch name for new repositories:
 
-git config --global init.defaultBranch main
+`git config --global init.defaultBranch main`
 
 Credential Storage
 
 Configure how Git stores credentials:
-
+``` bash
 git config --global credential.helper cache  # Temporarily stores in memory
 git config --global credential.helper store  # Stores in plaintext file (less secure)
+```
 
-Advanced Configuration
-
-Include Directives
-
-Include other configuration files:
-
-git config --global include.path "~/path/to/extra/config"
-
-Conditional Includes
-
-Include configurations based on conditions:
-
-[includeIf "gitdir:~/work/"]
-    path = .gitconfig-work
-
-Git Hooks
+**Git Hooks**
 
 Configure hooks directory:
 
-git config core.hooksPath /path/to/custom/hooks
+> git config core.hooksPath /path/to/custom/hooks
 
-Pager Settings
 
-Control how Git pages output:
-
-git config --global core.pager "less -FRSX"
-
-SSH Command
+**SSH Command**
 
 Specify custom SSH command:
 
-git config --global core.sshCommand "ssh -i ~/.ssh/custom_id"
+>git config --global core.sshCommand "ssh -i ~/.ssh/custom_id"
 
-Best Practices
 
-Set global configurations for user-specific settings (name, email, editor)
-
-Use local configurations for repository-specific settings
-
-Document your configurations if working in a team environment
-
-Be cautious with credential storage - use secure methods
-
-Regularly review your configurations to remove unused settings
-
-Editing Configuration Files Directly
+**Editing Configuration Files Directly**
 
 You can edit configuration files directly:
 
-git config --global --edit
+> git config --global --edit
 
 This opens your global configuration in your default editor.
 
-Git Areas Explained In-Depth
+---
+
+## Git Areas
 
 In Git, there are three main areas that track the state of the files and control the flow of versioning:
 
-1. Working Directory (Working Tree)
+1. **Working Directory (Working Tree)**
+   - This is actual project folder on disk.Where we make actual changes to code
+   - Also called the "untracked" or "modified" area
+   - Contains all files in project folder (both tracked and untracked)
 
-What it is:
+    **Files can be in one of three states:**
+    - Untracked: New files Git doesn't know about yet
+    - Modified: Tracked files that have been changed but not staged
+    - Unmodified: Tracked files that haven't changed since last commit
 
-This is actual project folder on disk.
+    **Commands that affect this area:**
 
-Where we make actual changes to code
+    Any file modification (editing, creating, deleting)
 
-Also called the "untracked" or "modified" area
+    `git status` shows changes here
 
-Key characteristics:
+    `git checkout -- <file>` discards changes here
 
-Contains all files in project folder (both tracked and untracked)
+    `git clean` removes untracked files
 
-Files can be in one of three states:
+**2. Staging Area (Index)**
 
-Untracked: New files Git doesn't know about yet
+   - An intermediate area between working directory and repository, Also called the "index"
+   - A snapshot of what will go into the next commit, Acts as a preview of next commit
+   - Allows partial commits. You can commit only part of your changes.
+   - Keeps your commit history clean and focused.
+   - Changes must be staged before they can be committed
+   
+**Commands that affect this area:**
 
-Modified: Tracked files that have been changed but not staged
+`git add` moves changes from working directory to staging
 
-Unmodified: Tracked files that haven't changed since last commit
+`git reset` (with options) can unstage changes
 
-Commands that affect this area:
+`git diff --cached` shows changes that are staged
 
-Any file modification (editing, creating, deleting)
+`git rm --cached` removes files from staging (but keeps in working dir)
 
-git status shows changes here
+`git restore --staged <file>` removes file from staging area but keeps changes in working directory.
 
-git checkout -- <file> discards changes here
+**3. Git Repository (Git Directory)**
 
-git clean removes untracked files
+- The .git folder in project root, The actual Git database.
+- Contains snapshots of project from past commits.
+- HEAD points to the latest commit in current branch.
+- Contains all commits, branches, tags, and Git's configuration
+- Stores compressed, immutable snapshots of your project
+- Commits here are permanent (though can be amended or rebased)
 
-2. Staging Area (Index)
+**Contains several sub-areas:**
 
-What it is:
+**Object database:** Stores all commit objects, trees, blobs
 
-An intermediate area between your working directory and repository
+**Refs:** Stores pointers to branches and tags
 
-Also called the "index"
+**HEAD:** Pointer to current branch/commit
 
-A snapshot of what will go into the next commit
+***Commands that affect this area:***
 
-Key characteristics:
+`git commit` moves changes from staging to repository
 
-Acts as a preview of next commit
+`git log` shows repository history
 
-Allows partial commits. You can commit only part of your changes.
+`git branch/git tag` modify references in repository
 
-Keeps your commit history clean and focused.
+`git push/git fetch` synchronize with remote repositories
 
-Changes must be staged before they can be committed
-
-Commands that affect this area:
-
-git add moves changes from working directory to staging
-
-git reset (with options) can unstage changes
-
-git diff --cached shows changes that are staged
-
-git rm --cached removes files from staging (but keeps in working dir)
-
-git restore --staged <file>: removes file from staging area but keeps changes in working directory.
-
-3. Git Repository (Git Directory)
-
-What it is:
-
-The .git folder in project root, The actual Git database.
-
-Contains snapshots of project from past commits.
-
-HEAD points to the latest commit in current branch.
-
-Contains all commits, branches, tags, and Git's configuration
-
-The definitive version of your project history
-
-Key characteristics:
-
-Stores compressed, immutable snapshots of your project
-
-Commits here are permanent (though can be amended or rebased)
-
-Contains several sub-areas:
-
-Object database: Stores all commit objects, trees, blobs
-
-Refs: Stores pointers to branches and tags
-
-HEAD: Pointer to current branch/commit
-
-Commands that affect this area:
-
-git commit moves changes from staging to repository
-
-git log shows repository history
-
-git branch/git tag modify references in repository
-
-git push/git fetch synchronize with remote repositories
-
-The Git Workflow
+**The Git Workflow**
 
 A typical workflow moves changes through these areas:
 
-Modify files in Working Directory
+- Modify files in Working Directory
 
-Stage changes with git add (to Staging Area)
+- Stage changes with git add (to Staging Area)
 
-Commit changes with git commit (to Repository)
+- Commit changes with git commit (to Repository)
 
-Advanced Concepts
 
-Stashing (Fourth Area?)
+**Stashing** (Fourth Area?)
 
-Git's stash acts like a temporary holding area for uncommitted changes:
+- Git's stash acts like a temporary holding area for uncommitted changes
 
-git stash saves working directory and staging changes
+- git stash saves working directory and staging changes
 
-git stash pop restores them
+- git stash pop restores them
 
-Remote Repository
+**Remote Repository**
 
 While not a local area, the remote repository is where you push your commits to share with others.
 
@@ -298,15 +232,6 @@ git checkout: Repository → Working Directory
 
 git reset: Can move changes between all areas depending on flags
 
-Understanding these areas helps you:
+---
 
-Organize your changes before committing
-
-Recover lost work
-
-Understand exactly where your changes are at any point
-
-Resolve conflicts more effectively
-
-Would you like me to elaborate on any specific aspect of these areas?
 
